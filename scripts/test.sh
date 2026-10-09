@@ -23,6 +23,11 @@ check "description makes loading mandatory" grep -q '^description: Required befo
 check "governance reference exists" test -s "$skill_dir/references/authoring-governance.md"
 check "git provenance reference exists" test -s "$skill_dir/references/git-provenance.md"
 check "AGENTS routes directly to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/AGENTS.md"
+check "AGENTS explicitly covers Workshop self-creation" grep -q 'Workshop self-creation is permitted and encouraged' "$workspace_dir/AGENTS.md"
+check "skill preserves practical authoring preferences" grep -q 'Do not overengineer routine authoring' "$skill_file"
+check "skill routes to SOUL preferences" grep -q 'SOUL.md' "$skill_file"
+check "skill routes to USER preferences" grep -q 'USER.md' "$skill_file"
+check "skill routes to IDENTITY preferences" grep -q 'IDENTITY.md' "$skill_file"
 check "legacy procedure points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/knowledge/procedures/skill-and-plugin-proposals.md"
 check "OpenClaw plugin creator points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/skills/plugin-creator/SKILL.md"
 

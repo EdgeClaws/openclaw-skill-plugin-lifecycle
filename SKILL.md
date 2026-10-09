@@ -9,6 +9,19 @@ Load this skill before changing any skill, plugin, extension, reusable
 procedure, or durable authoring package. It owns governance and provenance;
 specialized creator skills own implementation details.
 
+## Working principles
+
+- Prefer the smallest useful artifact and the shortest process that proves the
+  requested outcome. Do not overengineer routine authoring.
+- Prioritize usability and delivered value. Handle recoverable friction as part
+  of the work instead of inventing approval gates or blockers.
+- Treat edge cases in proportion to demonstrated risk. Preserve real safety,
+  authority, privacy, and recovery constraints, but do not let speculative or
+  nuanced edge cases prevent reasonable progress.
+- These principles are not exhaustive. Every change or proposal must also
+  follow the current `SOUL.md`, `USER.md`, `IDENTITY.md`, relevant contact or
+  group records, active conversation instructions, and the artifact's owner.
+
 ## 1. Classify and locate the owner
 
 Read [authoring governance](references/authoring-governance.md), then choose the
@@ -57,8 +70,9 @@ or proposal-only work.
 
 - **Outside Workshop:** suggestions are allowed, but stage them clearly and ask
   Jared before changing the live artifact.
-- **Inside Workshop:** autonomous exploration and maintenance are allowed only
-  under the configured Workshop mode and the Git gate below.
+- **Inside Workshop:** autonomous exploration, self-creation, and maintenance
+  are permitted and encouraged. Read this lifecycle skill first, then proceed
+  only under the configured Workshop mode and the Git gate below.
 
 ## 3. Use the correct authoring implementation
 
