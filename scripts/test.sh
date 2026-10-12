@@ -28,6 +28,8 @@ check "skill preserves practical authoring preferences" grep -q 'Do not overengi
 check "skill routes to SOUL preferences" grep -q 'SOUL.md' "$skill_file"
 check "skill routes to USER preferences" grep -q 'USER.md' "$skill_file"
 check "skill routes to IDENTITY preferences" grep -q 'IDENTITY.md' "$skill_file"
+check "Jared-requested new skills default to workspace skills" grep -q 'create it in this workspace.*' "$skill_file"
+check "Workshop requires explicit routing or existing ownership" grep -q 'Use `workshop-skills/` only when he explicitly asks' "$skill_file"
 check "legacy procedure points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/knowledge/procedures/skill-and-plugin-proposals.md"
 check "OpenClaw plugin creator points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/skills/plugin-creator/SKILL.md"
 

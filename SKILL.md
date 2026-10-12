@@ -51,6 +51,11 @@ requested change directly to the canonical source, verify it, commit it, and
 push when that repository has a remote. Do not add a second approval gate or a
 Workshop proposal for repository-owned work.
 
+When Jared requests a new durable skill, create it in this workspace's
+`skills/` tree by default. Use `workshop-skills/` only when he explicitly asks
+for a Workshop skill or the request updates an artifact already owned there.
+The availability of `skill_workshop` does not change this location rule.
+
 For a Jared-requested Workshop change, use the current Workshop lifecycle and
 finish the requested live outcome unless Jared explicitly asks for audit-only
 or proposal-only work.
