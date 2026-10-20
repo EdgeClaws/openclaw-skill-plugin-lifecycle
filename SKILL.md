@@ -116,6 +116,16 @@ Stock auto maintenance has no proposal rollback snapshot and no automatic Git
 commit. Until the gates are proven, keep autonomous mode at `propose` or `off`.
 Never change the mode as a side effect of authoring work.
 
+Autonomous Workshop review runs do not inherit this skill merely because it is
+listed in `AGENTS.md`. Keep the scoped `workshop-governance-context` plugin (or
+an equivalent host mechanism) enabled so per-turn reviews in `propose` and
+`auto`, plus the weekly `auto` review, dynamically receive this canonical skill
+and a current repository-skill owner index. The adapter must fail closed when
+that context is unavailable and must not copy policy into plugin code. See
+[autonomous Workshop governance](references/workshop-autonomous-governance.md).
+This context gate does not satisfy the separate Git/provenance requirements for
+`auto` mode.
+
 For proposal updates, read the complete live skill first. The proposal must be
 the complete intended next `SKILL.md`, not a change-description essay. Inspect,
 evaluate when available, apply only within the initiation rules above, and
