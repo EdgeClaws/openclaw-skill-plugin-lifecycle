@@ -27,8 +27,8 @@ continues to govern foreground repair and explicit authoring work.
   `skill-collection-review:` and its canonical cron session identity.
 - Never classify a run by matching natural-language prompt text.
 - Inject the lifecycle source dynamically; do not embed a second copy in code.
-- Fail closed before model inference when a targeted review lacks the injected
-  governance marker.
+- Keep the adapter to context injection; do not add a second review or prompt
+  gate solely to verify its own output.
 - Leave unrelated turns untouched.
 
 The standalone source is `EdgeClaws/openclaw-workshop-governance`. Its plugin
@@ -56,12 +56,10 @@ baseline.
 
 1. Run the plugin's focused tests and package dry run.
 2. Inspect the loaded runtime and confirm registrations for
-   `before_prompt_build`, `before_agent_run`, `cron_reconciled`, and
-   `cron_changed`.
+   `before_prompt_build`, `cron_reconciled`, and `cron_changed`.
 3. In an isolated OpenClaw state/workspace, prove identical lifecycle context
    reaches per-turn `propose`, per-turn `auto`, and weekly `auto` reviews.
-4. Prove an ordinary turn receives no injected context and a targeted run with
-   missing governance is blocked.
+4. Prove an ordinary turn receives no injected context.
 5. Re-run the contract tests after OpenClaw upgrades because the review run and
    cron identities are host contracts.
 

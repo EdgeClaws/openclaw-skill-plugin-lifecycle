@@ -120,11 +120,12 @@ Autonomous Workshop review runs do not inherit this skill merely because it is
 listed in `AGENTS.md`. Keep the scoped `workshop-governance-context` plugin (or
 an equivalent host mechanism) enabled so per-turn reviews in `propose` and
 `auto`, plus the weekly `auto` review, dynamically receive this canonical skill
-and a current repository-skill owner index. The adapter must fail closed when
-that context is unavailable and must not copy policy into plugin code. See
+and a current repository-skill owner index. The adapter must load the current
+canonical source rather than copy policy into plugin code; do not add a second
+review or prompt gate merely to verify its own injection. See
 [autonomous Workshop governance](references/workshop-autonomous-governance.md).
-This context gate does not satisfy the separate Git/provenance requirements for
-`auto` mode.
+This context injection does not satisfy the separate Git/provenance
+requirements for `auto` mode.
 
 For proposal updates, read the complete live skill first. The proposal must be
 the complete intended next `SKILL.md`, not a change-description essay. Inspect,
