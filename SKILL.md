@@ -18,14 +18,16 @@ specialized creator skills own implementation details.
 - Treat edge cases in proportion to demonstrated risk. Preserve real safety,
   authority, privacy, and recovery constraints, but do not let speculative or
   nuanced edge cases prevent reasonable progress.
-- These principles are not exhaustive. Every change or proposal must also
-  follow the current `SOUL.md`, `USER.md`, `IDENTITY.md`, relevant contact or
-  group records, active conversation instructions, and the artifact's owner.
+- Also follow current `SOUL.md`, `USER.md`, `IDENTITY.md`, relevant preference
+  records, active instructions, and the artifact's owner.
 
 ## 1. Classify and locate the owner
 
-Read [authoring governance](references/authoring-governance.md), then choose the
-smallest reusable artifact and its canonical source:
+Read [authoring governance](references/authoring-governance.md) and
+[ownership and identity](references/ownership-and-identity.md). Load
+`references/authoring-ownership.json` before deciding who may change a
+repository-owned artifact. Then choose the smallest reusable artifact and its
+canonical source:
 
 - **Procedure:** reusable operational guidance that should not trigger as an
   agent capability.
@@ -44,40 +46,50 @@ authoritative owner; references point to it instead of copying its rules.
 
 ## 2. Route by initiation and jurisdiction
 
-### Jared-led work
+### Workspace-owner-led work
 
-Jared owns every live skill or plugin outside `workshop-skills/`. Apply his
+The ownership registry names the workspace owner. Apply that principal's
 requested change directly to the canonical source, verify it, commit it, and
-push when that repository has a remote. Do not add a second approval gate or a
-Workshop proposal for repository-owned work.
+publish it according to `references/repository-publication.json`. Do not add a
+second approval gate or a Workshop proposal for repository-owned work.
 
-When Jared requests a new durable skill, create it in this workspace's
-`skills/` tree by default. Use `workshop-skills/` only when he explicitly asks
+For an owner-requested durable skill, default to this workspace's `skills/`
+tree. Use `workshop-skills/` only when they explicitly ask
 for a Workshop skill or the request updates an artifact already owned there.
 The availability of `skill_workshop` does not change this location rule.
 
-For a Jared-requested Workshop change, use the current Workshop lifecycle and
-finish the requested live outcome unless Jared explicitly asks for audit-only
-or proposal-only work.
+For an owner-requested Workshop change, use the current Workshop lifecycle and
+finish the requested live outcome unless the owner explicitly asks for
+audit-only or proposal-only work.
+
+### Delegated maintainer work
+
+An exact `maintainer` grant gives direct-edit authority only for its registered
+artifact path. Apply, verify, commit, and publish that bounded change as
+owner-delegated work. It does not authorize edits to this lifecycle skill,
+either registry, another artifact, the grant itself, or repository-wide policy.
 
 ### Teammate-led work
 
-- **Outside Workshop:** do not mutate the live artifact. Stage a complete
-  suggestion through the owning repository's branch/PR mechanism, or a clearly
-  labeled committed proposal artifact when no branch workflow exists. Record
-  who requested it and notify Jared for the authority decision.
+- **New skill:** create it in the requester's Workshop collection by default.
+  Do not place it in the workspace `skills/` tree without an owner instruction.
+- **Existing repository artifact without a grant:** do not mutate the live
+  artifact. Stage a complete suggestion through the owning repository's
+  branch/PR mechanism, or a clearly labeled committed proposal artifact when
+  no branch workflow exists. Record who requested it and notify the workspace
+  owner for the authority decision.
 - **Inside Workshop:** a teammate request may be applied only after checking it
-  against Jared's standing expectations, the complete current Workshop skill
-  set, pending proposals, and adjacent non-Workshop skills. Reject or
-  consolidate conflicts; verify and commit accepted changes.
+  against the owner's standing expectations, the current Workshop skill set,
+  pending proposals, and adjacent repository skills. Reject or consolidate
+  conflicts; verify accepted changes.
 
 ### Agent-initiated work
 
 - **Outside Workshop:** suggestions are allowed, but stage them clearly and ask
-  Jared before changing the live artifact.
+  the workspace owner before changing the live artifact.
 - **Inside Workshop:** autonomous exploration, self-creation, and maintenance
   are permitted and encouraged. Read this lifecycle skill first, then proceed
-  only under the configured Workshop mode and the Git gate below.
+  only under the configured Workshop mode and its applicable audit gate.
 
 ## 3. Use the correct authoring implementation
 
@@ -104,7 +116,14 @@ new background reviews to edit the Workshop tree directly and permits a newly
 created foreground repair proposal to be applied immediately. It does not make
 the existing pending backlog live merely because the setting changes.
 
-Do not enable or rely on Workshop `auto` until all of these are true:
+Workshop proposal operations already preserve immutable generations, proposal
+provenance and events, content hashes, and apply rollback metadata. Do not add
+a duplicate Git requirement to a change that stays entirely on that managed
+proposal/apply path.
+
+Direct Workshop `auto` maintenance bypasses that proposal history and rollback
+path. Do not enable or rely on direct `auto` maintenance until all of these are
+true:
 
 1. The complete Workshop tree is Git-backed.
 2. Every autonomous edit path demonstrably creates a provenance-bearing commit.
@@ -120,12 +139,14 @@ Autonomous Workshop review runs do not inherit this skill merely because it is
 listed in `AGENTS.md`. Keep the scoped `workshop-governance-context` plugin (or
 an equivalent host mechanism) enabled so per-turn reviews in `propose` and
 `auto`, plus the weekly `auto` review, dynamically receive this canonical skill
-and a current repository-skill owner index. The adapter must load the current
+and a current repository-skill inventory. The adapter must load the current
 canonical source rather than copy policy into plugin code; do not add a second
 review or prompt gate merely to verify its own injection. See
 [autonomous Workshop governance](references/workshop-autonomous-governance.md).
-This context injection does not satisfy the separate Git/provenance
-requirements for `auto` mode.
+The adapter must also load the current ownership and repository-publication
+registries so autonomous runs receive the same delegated-authority and
+publication boundaries. This context injection does not satisfy the separate
+Git/provenance requirements for direct `auto` maintenance.
 
 For proposal updates, read the complete live skill first. The proposal must be
 the complete intended next `SKILL.md`, not a change-description essay. Inspect,
@@ -149,17 +170,22 @@ or valid frontmatter does not prove sound ownership, non-conflict, or behavior.
 
 ## 6. Commit and publish with provenance
 
-Every skill or plugin change requires a Git commit, regardless of storage
-location. Read [Git provenance](references/git-provenance.md) before committing.
+Every repository/workspace skill or plugin change requires a Git commit. Direct
+Workshop `auto` maintenance also requires one because it bypasses Workshop's
+managed proposal history. Proposal-based Workshop changes use Workshop's own
+immutable revision/event/rollback record instead of a duplicate Git commit.
+Read [Git provenance](references/git-provenance.md) before committing.
 
-- If the canonical source has a remote, push the commit unless Jared explicitly
-  limits the task to local/staged work.
+- Load `references/repository-publication.json`; it is the single source for
+  required canonical pushes and standalone publications.
+- If the canonical source has a remote, push the commit unless the workspace
+  owner explicitly limits the task to local/staged work.
 - If the canonical source has no repository, initialize a local repository at
   the narrowest stable owning root before changing the live artifact.
 - Never mix unrelated working-tree changes into the commit.
-- Record whether the change was owner-requested, teammate-proposed,
-  agent-proposed, or Workshop-autonomous.
+- Record whether the change was owner-requested, delegated-maintainer,
+  teammate-proposed, agent-proposed, or Workshop-autonomous.
 
 Authoring is complete only when the live/staged state matches the intended
-authority boundary, validation passes, the provenance commit exists, and any
-required remote reflects that commit.
+authority boundary, validation passes, the required Git or Workshop provenance
+record exists, and every required publication is current.

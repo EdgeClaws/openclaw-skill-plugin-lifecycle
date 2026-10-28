@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "identityDirectory": {
+    "sources": [
+      "USER.md",
+      "memory/contacts/"
+    ],
+    "principalKey": "work_email",
+    "resolution": "trusted-channel-identity-to-exactly-one-principal"
+  },
+  "defaultPolicy": {
+    "workspaceOwner": "jared@edge.app",
+    "unlistedHumanNewSkill": "workshop",
+    "unlistedHumanExistingRepositoryArtifact": "proposal",
+    "agentNewSkill": "workshop",
+    "agentExistingRepositoryArtifact": "proposal"
+  },
+  "principals": {
+    "jared@edge.app": {
+      "displayName": "Jared Pearson"
+    },
+    "rj@airbitz.co": {
+      "displayName": "RJ Ricasata"
+    }
+  },
+  "grants": [
+    {
+      "artifact": "skills/testrail",
+      "principal": "rj@airbitz.co",
+      "role": "maintainer"
+    }
+  ]
+}

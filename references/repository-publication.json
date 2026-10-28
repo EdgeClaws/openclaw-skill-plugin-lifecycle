@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "defaults": {
+    "canonicalRepository": "enclosing-git-root",
+    "pushCanonicalRemote": true,
+    "standalonePublication": "none"
+  },
+  "artifacts": {
+    "skills/openclaw-skill-plugin-lifecycle": {
+      "canonicalRepository": "enclosing-git-root",
+      "publications": [
+        {
+          "repository": "https://github.com/EdgeClaws/openclaw-skill-plugin-lifecycle",
+          "branch": "main",
+          "method": "git-subtree",
+          "prefix": "skills/openclaw-skill-plugin-lifecycle",
+          "requiredOnChange": true
+        }
+      ]
+    },
+    "plugin:workshop-governance-context": {
+      "canonicalRepository": "https://github.com/EdgeClaws/openclaw-workshop-governance",
+      "branch": "main",
+      "publications": []
+    }
+  }
+}
