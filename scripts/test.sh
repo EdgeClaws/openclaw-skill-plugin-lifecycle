@@ -30,8 +30,6 @@ check "registries validate" node "$skill_dir/scripts/validate-registries.mjs"
 check "RJ can maintain TestRail" grep -q '"artifact": "skills/testrail"' "$skill_dir/references/authoring-ownership.json"
 check "ownership uses no channel IDs" sh -c "! grep -Eq 'telegram|slack|channelId|channel_id' \"\$1\"" _ "$skill_dir/references/authoring-ownership.json"
 check "lifecycle publication is registered" grep -q 'EdgeClaws/openclaw-skill-plugin-lifecycle' "$skill_dir/references/repository-publication.json"
-check "AGENTS routes directly to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/AGENTS.md"
-check "AGENTS explicitly covers Workshop self-creation" grep -q 'Workshop self-creation is permitted and encouraged' "$workspace_dir/AGENTS.md"
 check "skill preserves practical authoring preferences" grep -q 'Do not overengineer routine authoring' "$skill_file"
 check "skill routes to SOUL preferences" grep -q 'SOUL.md' "$skill_file"
 check "skill routes to USER preferences" grep -q 'USER.md' "$skill_file"
@@ -40,7 +38,14 @@ check "owner-requested new skills default to workspace skills" grep -q "owner-re
 check "Workshop requires explicit owner routing or existing ownership" grep -q 'Use `workshop-skills/` only when they explicitly ask' "$skill_file"
 check "teammate new skills default to Workshop" grep -q "requester's Workshop collection by default" "$skill_file"
 check "Workshop proposal history avoids duplicate Git" grep -q 'duplicate Git requirement' "$skill_file"
-check "legacy procedure points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/knowledge/procedures/skill-and-plugin-proposals.md"
-check "OpenClaw plugin creator points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/skills/plugin-creator/SKILL.md"
+
+if test -f "$workspace_dir/AGENTS.md"; then
+  check "AGENTS routes directly to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/AGENTS.md"
+  check "AGENTS explicitly covers Workshop self-creation" grep -q 'Workshop self-creation is permitted and encouraged' "$workspace_dir/AGENTS.md"
+  check "legacy procedure points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/knowledge/procedures/skill-and-plugin-proposals.md"
+  check "OpenClaw plugin creator points to lifecycle skill" grep -q 'skills/openclaw-skill-plugin-lifecycle/SKILL.md' "$workspace_dir/skills/plugin-creator/SKILL.md"
+else
+  printf 'SKIP: workspace integration checks (standalone checkout)\n'
+fi
 
 exit "$failures"
